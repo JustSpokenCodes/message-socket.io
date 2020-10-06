@@ -17,7 +17,7 @@
 }
 
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--primary-text);
 }
 
@@ -47,6 +47,11 @@ body {
     margin-bottom: 20px;
 }
 
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 /* Text Classes */
 .primary-text {
     color: var(--primary-text);
@@ -67,4 +72,31 @@ body {
 h1 {
     font-size: 48px;
     font-weight: 300;
+}
+
+/* Header  */
+header {
+    height: 150px;
+    background-color: var(--dark-blue);
+    width: 100%;
+    color:white;
+}
+
+header .container {
+    height: 100%;
+    align-items: left;
+}
+
+#appContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--primary-blue);
+}
+
+/* Login Form  */
+#login {
+    background:white;
+    padding: 40px 100px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+    margin-top: -100px;
 }
