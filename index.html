@@ -16,8 +16,8 @@
             </div>
         </header>
 
-        <div id="mainContent" class="container flex-grow-1 flex-column flex-center">
-            <section id="login">
+        <div id="mainContent" class="container flex-grow-1 flex-column">
+            <section id="login" class="hidden">
                 <h2 class="text-center">Getting Started</h2>
                 <form id="loginForm" class="flex">
                     <input type="text" name="username" class="flex-grow-1" id="usernameInput" placeholder="username">
@@ -25,27 +25,12 @@
                 </form>
             </section>
 
-            <section id="chat" class="hidden">
-                <div id="messagesList">
-                    <div class="message message-left">
-                        <div id="message-details">
-                            <p class="message-author">Josh Stevens</p>
-                            <p class="message-date">10/8/2020</p>
-                        </div>
-                        <p class="message-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, fugit dignissimos iusto similique quae ab!</p>
-                    </div>
-                    <div class="message message-right">
-                        <div id="message-details">
-                            <p class="message-author"> </p>
-                            <p class="message-date">10/8/2020</p>
-                        </div>
-                        <p class="message-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, fugit dignissimos iusto similique quae ab!</p>
-                    </div>
-                    <p class="secondary-text text-center">Josh Stevens has joined the chat...</p>
+            <section id="chat" class="flex-grow-1 flex-column" >
+                <div id="messagesList" class="flex-grow-1">
                 </div>
-                <form id="messageForm" class="flex">
+                <form id="messageForm" class="flex mb-2">
                     <input type="text" name="message" class="flex-grow-1" id="messageInput" placeholder="Enter a message">
-                    <button id="loginBtn"></button>
+                    <button id="loginBtn">send</button>
                 </form>
             </section>
         </div>
