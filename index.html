@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 </head>
 
 <body>
+
     <div id="appContainer" class="flex-column">
         <header>
             <div class="container flex-column flex-center">
@@ -17,15 +19,16 @@
         </header>
 
         <div id="mainContent" class="container flex-grow-1 flex-column">
-            <section id="login" class="">
+
+            <section id="login">
                 <h2 class="text-center">Getting Started</h2>
                 <form id="loginForm" class="flex">
                     <input type="text" name="username" class="flex-grow-1" id="usernameInput" placeholder="username">
-                    <button id="sendBtn">Chat!</button>
+                    <button id="loginBtn">Chat!</button>
                 </form>
             </section>
 
-            <section id="chat" class="hidden flex-grow-1 flex-column" >
+            <section id="chat" class="flex-grow-1 flex-column hidden" >
                 <div id="messagesList" class="flex-grow-1">
                 </div>
                 <form id="messageForm" class="flex mb-2">
@@ -35,7 +38,6 @@
             </section>
         </div>
     </div>
-
     <script src="app.js"></script>
 
 </body>

@@ -25,7 +25,7 @@ const createMessageHTML = (message) => {
     return `
         <div class="message ${message.type === messageTypes.LEFT ? 'message-left': 'message-right'}">
             <div id="message-details" class="flex">
-                <p class="message-author">${message.author === messageTypes.RIGHT ? '': message.author} </p>
+                <p class="flex-grow-1 message-author">${message.author}</p>
                 <p class="message-date">${message.date}</p>
             </div>
             <p class="message-content"> ${message.content}</p>
@@ -33,15 +33,13 @@ const createMessageHTML = (message) => {
     `;
 }
 
-const displayMessages = () => {
+displayMessages = () => {
     console.log('displaying messages');
     const messagesHTML = messages
-        .map((message) => createMessageHTML(message))
+        .map(message => createMessageHTML(message))
         .join('');
     messagesList.innerHTML= messagesHTML;
 }
-
-displayMessages();
 
 //sendbtn callback
 sendBtn.addEventListener('click', e => {
@@ -59,7 +57,14 @@ sendBtn.addEventListener('click', e => {
 
     messages.push(message);
     displayMessages();
-})
+
+    //scroll to the bottom
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    //clear input 
+    messageInput.value = '';
+});
+
 //loginbtn callback
 loginBtn.addEventListener('click', e => {
     //prevent default of a form
@@ -69,15 +74,14 @@ loginBtn.addEventListener('click', e => {
         return console.log("must supply a username")
     }
     username = usernameInput.value; 
-
+z
     messages.push({
         author: username,
         type: messageTypes.LOGIN
-    })
+    });
+    displayMessages();
     
     //hide login and show chat window
     loginWindow.classList.add('hidden');
     chatWindow.classList.remove('hidden');
-    //display those messages
-    displayMessages();
 });
