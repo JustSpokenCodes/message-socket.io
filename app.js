@@ -7,14 +7,12 @@ const messagesInput = document.getElementById('messagesInput');
 const sendBtn = document.getElementById('sendBtn');
 
 //Login Stuff
+let username = '';
 const usernameInput = document.getElementById('usernameInput');
 const loginBtn = document.getElementById('loginBtn');
 const loginWindow = document.getElementById('loginWindow');
 
-const messages = [
-    {author:'joshua stevens', date:'10/08/2020', content: "cool idea", type: messageTypes.RIGHT},  {author:'joshua stevens', date:'10/08/2020', content: "cool idea", type: messageTypes.LEFT},  {author:'joshua stevens', date:'10/08/2020', type: messageTypes.LOGIN} 
-]; // {author, date, content, type}
-
+const messages = []; // {author, date, content, type}
 
 //take in message object, and return corresponding message HTML
 const createMessageHTML = (message) => {
@@ -36,6 +34,7 @@ const createMessageHTML = (message) => {
 }
 
 const displayMessages = () => {
+    console.log('displaying messages');
     const messagesHTML = messages
         .map((message) => createMessageHTML(message))
         .join('');
@@ -43,3 +42,42 @@ const displayMessages = () => {
 }
 
 displayMessages();
+
+//sendbtn callback
+sendBtn.addEventListener('click', e => {
+    e.preventDefault();
+    if(!messageInput.value) {
+        return console.log('must supply a message');
+    }
+
+    const message = {
+        author: username,
+        date: new Date(),
+        content: messageInput.value,
+        type: messageTypes.RIGHT
+    };
+
+    messages.push(message);
+    displayMessages();
+})
+//loginbtn callback
+loginBtn.addEventListener('click', e => {
+    //prevent default of a form
+    e.preventDefault();
+    //set the username and create logged in message
+    if(!usernameInput.value){
+        return console.log("must supply a username")
+    }
+    username = usernameInput.value; 
+
+    messages.push({
+        author: username,
+        type: messageTypes.LOGIN
+    })
+    
+    //hide login and show chat window
+    loginWindow.classList.remove('hidden');
+    chatWindow.classList.add('hidden');
+    //display those messages
+    displayMessages();
+});
