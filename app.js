@@ -10,7 +10,7 @@ const sendBtn = document.getElementById('sendBtn');
 let username = '';
 const usernameInput = document.getElementById('usernameInput');
 const loginBtn = document.getElementById('loginBtn');
-const loginWindow = document.getElementById('loginWindow');
+const loginWindow = document.getElementById('login');
 
 const messages = []; // {author, date, content, type}
 
@@ -76,8 +76,8 @@ loginBtn.addEventListener('click', e => {
     })
     
     //hide login and show chat window
-    loginWindow.classList.remove('hidden');
-    chatWindow.classList.add('hidden');
+    loginWindow.classList.add('hidden');
+    chatWindow.classList.remove('hidden');
     //display those messages
     displayMessages();
 });
