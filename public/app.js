@@ -16,8 +16,25 @@ const messages = []; // {author, date, content, type}
 
 var socket = io();
 
+socket.on('message', message => {
+    //Update type of message based on username
+    if(message.type !== messageTypes.LOGIN) {
+        if (message.author === username) {
+            message.type = messageTypes.RIGHT;
+        } else {
+            message.type = messageTypes.LEFT;
+        }
+    }
+
+    messages.push(message);
+    displayMessages();
+
+    //scroll to the bottom 
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+});
+
 //take in message object, and return corresponding message HTML
-const createMessageHTML = (message) => {
+const createMessageHTML = message => {
     if(message.type === messageTypes.LOGIN){
         return `
         <p class="secondary-text text-center mb-2">${message.author} has joined the chat...</p>
@@ -27,7 +44,7 @@ const createMessageHTML = (message) => {
     return `
         <div class="message ${message.type === messageTypes.LEFT ? 'message-left': 'message-right'}">
             <div id="message-details" class="flex">
-                <p class="flex-grow-1 message-author">${message.type === messageTypes.RIGHT ? '': message.author}</p>
+                <p class="flex-grow-1 message-author">${message.type === messageTypes.LEFT ? message.author: ''}</p>
                 <p class="message-date">${message.date}</p>
             </div>
             <p class="message-content"> ${message.content}</p>
@@ -36,7 +53,6 @@ const createMessageHTML = (message) => {
 }
 
 displayMessages = () => {
-    console.log('displaying messages');
     const messagesHTML = messages
         .map(message => createMessageHTML(message))
         .join('');
@@ -50,21 +66,20 @@ sendBtn.addEventListener('click', e => {
         return console.log('must supply a message');
     }
 
+    const date = new Date();
+    const month =('0'+ date.getMonth()).slice(0,2);
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const dateString = `${month}/${day}/${year}`;
+
     const message = {
         author: username,
-        date: new Date(),
-        content: messageInput.value,
-        type: messageTypes.RIGHT
+        date: dateString,
+        content: messageInput.value
     };
 
-    messages.push(message);
-    displayMessages();
+    sendMessage(message);
 
-    messageInput.value = "";
-    //scroll to the bottom
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-
-    //clear input 
     messageInput.value = '';
 });
 
@@ -76,15 +91,15 @@ loginBtn.addEventListener('click', e => {
     if(!usernameInput.value){
         return console.log("must supply a username")
     }
-    username = usernameInput.value; 
 
-    messages.push({
-        author: username,
-        type: messageTypes.LOGIN
-    });
-    displayMessages();
+    username = usernameInput.value; 
+    sendMessage({ author: username, type: messageTypes.LOGIN});
     
     //hide login and show chat window
     loginWindow.classList.add('hidden');
     chatWindow.classList.remove('hidden');
 });
+
+sendMessage = message => {
+    socket.emit('message', message);
+};

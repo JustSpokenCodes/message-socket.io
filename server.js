@@ -11,10 +11,20 @@ app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, + 'public/index.html'));
 })
 
-io.on('connection', (socket)=> {
+io.on('connection', socket=> {
     console.log("a user connected");
+
+    socket.on('disconnect', ()=> {
+        console.log('user disconnected');
+    })
+
+    socket.on('message', message=> {
+        console.log('message', message);
+        //Broadcaast the message to everyone!
+        io.emit('message',message);
+    })
 });
 
-app.listen(3000,() => {
+http.listen(3000,() => {
     console.log('we are listening on port 3000')
 });
